@@ -1,0 +1,136 @@
+# 文件上传配置
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+  # 数据库连接Data_Source
+  datasource:
+    name: gas_mini
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      #监控统计拦截的filters
+      filters: stat
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://120.77.14.136:3306/gas_mini_program?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
+      username: chanpinzu
+      password: cy15874265%
+#      url: jdbc:mysql://127.0.0.1:3306/gas_mini_program?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
+#      username: root
+#      password: yufangwu
+      #配置初始化大小/最小/最大
+      initial-size: 1
+      min-idle: 1
+      max-active: 20
+      #获取连接等待超时时间
+      max-wait: 60000
+      #间隔多久进行一次检测，检测需要关闭的空闲连接
+      time-between-eviction-runs-millis: 60000
+      #一个连接在池中最小生存的时间
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 'x'
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
+      pool-prepared-statements: false
+      max-pool-prepared-statement-per-connection-size: 20
+  mail:
+    host: smtp.163.com
+    username: tcit001@163.com
+    password: GCXEGORDHCWSATRL
+    default-encoding: utf-8
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
+            trust: smtp.163.com
+        socketFactory:
+          class: javax.net.ssl.SSLSocketFactory
+          port: 465
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          socketFactory:
+            port: 465
+  jpa:
+    show-sql: true
+    open-in-view: true
+  jackson:
+    default-property-inclusion: non_null
+  redis:
+    host: 127.0.0.1
+#    host: 120.77.14.136
+    port: 6379
+    password:
+#    password: 123456
+    database: 1
+#mybatis-plus配置
+mybatis-plus:
+  mapper-locations: classpath:/com/cy/gas_mini/mapper/mapping/*Mapper.xml
+  type-aliases-package: com.cy.gas_mini.entity
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    call-setters-on-nulls: true
+#pagehelper 注意：reasonable如果为true，则超过最大页数后依旧返回数据，如果为false则返回空
+pagehelper:
+  helperDialect: mysql
+  reasonable: false
+  supportMethodsArguments: true
+  params: count=countSql
+  returnPageInfo: check
+  # 日志
+logging:
+  config: classpath:logback.xml
+  path: /logs/gas_mini
+cy:
+  jwt:
+    secret: gas_mini_key               # jwt密钥
+    enable-redis: true             # 是否开启redis缓存
+    header-string: Authorization   # 传输jwt的http-header字段
+    expiration-time: 7200000        # 过期时间，单位毫秒
+    redis-key-prefix: gas_mini-user-jwt-
+    enable-jwt: false
+# 常量
+project-cost:
+  xcxAppId: wx46dbafc3ea990052
+  xcxAppSecret: 2710fe6ec5ec0aa5a7f6af865f1789d6
+  file_Path: D:/IT/cy_fpyun/mini_program_merchant/
+  url_Path: https://mpapi.cyui.cn/mini_program_merchant/
+  sh_key: jiX8QEsl8k7bPEhSQdfMb4O6iOY9Qc9N
+  notifyUrl: https://mpapi.cyui.cn/gas_mini/fuyou/doNotifyHandel
+  chinaMerchantsPay: http://test100.ayh123.cn/ChinaMerchantsPay/polymerPay/
+  yunshangquan: https://mpapi.cyui.cn/mall_server/
+  accessControlUrl: http://test100.ayh123.cn/access_controll/
+  fapiaoServerUrl: http://120.77.14.136:8080/fapiao_server/
+  cyFpYunUrl: http://test100.ayh123.cn/cy_fpyun/
+  weChatAppid: wxb71ddc68a7978c3a
+  wechatLoginUrl: http://dtst.ayh123.cn/wechat_platform/login/qrAuthorize
+  mpInvoiceUrl: https://webs.cyui.cn/gas_mini/invoice-to-apply
+  invoiceCallBackUrl: https://mpapi.cyui.cn/gas_mini/invoice/
+  hongShiUrl: http://i246306m14.wicp.vip:44868
+  payPlateformIp: https://dev.tc-etc.cn/test/pay_platform
+  wftPayPlateformIp : http://dev.tc-etc.cn/test/pay_platform
+  xindaluUrl: http://gateway.starpos.com.cn/adpweb/ehpspos3/
+  gasMiniUrl: https://dev.tc-etc.cn/dev/gas_mini
+  huiWangCaiKey: 123456
+  huiWangCaiUrl: http://open.test.siemin.com/gateway.do
+  channelCode: 1001000327
+  icbcUrl: https://server.tc-etc.com/pay_platform
+  isDebug: true
+system:
+  version: 1.1
+jinyi:
+  pay:
+    request-url: http://tgd.poapi.parkingjet.cn:8082/ParkingOpenApi/V2.0/default.ashx # 金溢接口地址
+  obu:
+    request-url: http://127.0.0.1:3722
+    appid: 201909060001
+chongQingEtc:
+#  domainName: http://test.gs12122.com:8081
+  domainName: https://jiayou.gs12122.com:8087
+  testMId: 14
+unionPay:
+  baseUrl: https://unicontent.cn/zhtxproxy/v1.0/parking/standard
